@@ -1,0 +1,158 @@
+                                                    
+                                                    
+                                                    Hệ thống đặt xe buýt
+                                        sử dụng cấu trúc dữ liệu danh sách liên kết vòng
+
+GIỚI THIỆU
+
+Sử dụng cấu trúc dữ liệu danh sách liên kết cho triển khai Hệ thống đặt vé xe buýt ( Bus Booking System: BBS ) bằng ngôn ngữ Python.
+BBS quản lý thông tin về xe, khách hàng và đặt xe. Thông tin gồm:
+
+Về xe buýt:
+1. bcode (string): mã của xe buýt (mã này phải là duy nhất cho xe buýt).
+2. bus_name (string): tên của xe buýt.
+3. seat (integer): số ghế trên xe (số ghế > 0).
+4. booked (integer): số chỗ đã đặt trên xe (ố chỗ đã đặt >= 0 và ố chỗ đã đặt ≤ số ghế).
+5. depart_time (double): Thời gian khởi hành của xe (depart_time >= 0).
+6. arrival_time (double): Thời gian đến của xe (thời gian đến > thời gian khởi hành).
+
+Về khách hàng:
+1. ccode (string): mã khách hàng (mã này phải là duy nhất cho khách hàng).
+2. cus_name (string): tên khách hàng.
+3. phone (string): Số điện thoại của khách hàng (chỉ được chứa chữ số).
+
+Về đặt vé xe buýt:
+1. bcode (string): mã của xe cần đặt.
+2. ccode (string): mã của khách hàng.
+3. seat (số nguyên): số ghế cần đặt trên xe.
+
+NHIỆM VỤ CỦA BẠN
+
+Bạn hãy sử dụng 3 danh sách liên kết vòng, mỗi danh sách dùng để lưu trữ dữ liệu cho xe buýt, khách hàng hoặc các mục đặt xe buýt. Bạn nên tạo danh sách liên kết từ đầu, không nên sử dụng cấu trúc danh sách có sẵn trong Python. Khi chạy chương trình của bạn hiển thị menu như sau:
+
+Danh sách xe buýt (30 điểm):
+1.1. Tải dữ liệu từ tập tin
+1.2. Nhập & thêm đầu vào
+1.3. Hiển thị dữ liệu
+1.4. Lưu danh sách xe buýt vào tập tin
+1.5. Tìm kiếm theo bcode
+1.6. Xóa theo bcode
+1.7. Sắp xếp theo bcode
+1.8. Thêm vào trước vị trí k
+1.9. Xóa nút trước nút có bcode = xCode
+
+Danh sách khách hàng (5 điểm):
+2.1. Tải dữ liệu từ tập tin
+2.2. Nhập & thêm thông tin khách hàng
+2.3. Hiển thị dữ liệu
+2.4. Lưu danh sách khách hàng vào file
+2.5. Tìm kiếm theo ccode
+2.6. Xóa bằng ccode
+
+Danh sách đặt chỗ (5 điểm):
+3.1. Dữ liệu đầu vào
+3.2. Hiển thị thời gian di chuyển theo chiều rộng dữ liệu
+3.3. Sắp xếp theo bcode + ccode
+
+GIẢI THÍCH NHIỆM VỤ
+                                                Danh sách xe buýt (30 điểm):
+1.1. Tải dữ liệu từ tập tin
+Cho phép người dùng nhập tên file chứa thông tin về xe buýt. Nội dung của tập tin văn bản có thể
+
+B03 | Sug | 12 | 3 | 11  | 15
+B01 | Mil | 10 | 5 | 5.7 | 8
+B02 | App | 5  | 2 | 4   | 7
+B05 | Roo | 7  | 6 | 15  | 19
+B07 | Bee | 11 | 3 | 12  | 13.6
+B04 | Boo | 9  | 5 | 5   | 7.1
+
+Dòng đầu tiên có nghĩa là: bcode = B03, bus_name = Sug, seat = 12, booked  = 3, depart_time = 11 và arrival_time = 15.
+Nhiệm vụ của tùy chọn này là đọc các hàng từ file văn bản và thêm thông tin vào cuối danh sách.
+Nếu danh sách không trống thì chương trình sẽ hỏi người dùng xem họ có muốn giữ lại danh sách không.
+dữ liệu hiện có hay không.
+
+1.2. Nhập & thêm đầu vào
+Cho phép người dùng thêm thông tin mới về xe buýt. Sau khi kiểm tra xác thực dữ liệu
+(bao gồm cả việc không thể sao chép bcode), bus sẽ được thêm vào phần đầu của
+danh sách.
+1.3. Hiển thị dữ liệu
+Hiển thị dữ liệu dưới dạng:
+bcode | bus_name | seat | booked | depart_time | arrival_time | travel_time
+trong đó: travel_time = arrival_time - depart_time
+
+Ví dụ: sau khi tải tệp trên, tùy chọn này sẽ đưa ra kết quả bên dưới:
+bcode|Bus_name|Seat|booked|depart_time|arrival_time|travel_time
+-------------------------------------------------------------------
+B03 | Sug     | 12 | 3    | 11        | 15         | 4
+B01 | Mil     | 10 | 5    | 5.7       | 8          | 2.3
+B02 | App     | 5  | 2    | 4         | 7          | 3
+B05 | Roo     | 7  | 6    | 15        | 19         | 4
+B07 | Bee     | 11 | 3    | 12        | 13.6       | 1.6
+B04 | Boo     | 9  | 5    | 5         | 7.1        | 2.1
+
+1.4. Lưu danh sách xe buýt vào tập tin
+Cho phép người dùng nhập tên tệp và lưu danh sách bus vào tệp. Thông tin
+và định dạng như tùy chọn 1.3.
+
+1.5. Tìm kiếm theo bcode
+Viết hàm: def search(xCode): Trả về tham chiếu đến nút có thông tin chứa bus có bcode = xCode.
+Cho phép người dùng nhập mã bcode cần tìm và hiển thị kết quả: tìm thấy hay không
+thành lập.
+
+1.6. Xóa bằng bcode
+Viết hàm: def dele(xCode): sẽ xóa nút có thông tin chứa bus có bcode = xCode.
+Cho phép người dùng nhập mã bcode cần xóa và sau đó xóa bus có mã đó bcode.
+
+1.7. Sắp xếp theo bcode
+
+1.8. Thêm vào trước vị trí k
+Vị trí của phần tử đầu tiên là 0, phần tử thứ hai là 1
+Cho phép người dùng nhập dữ liệu cho bus và k, sau đó thêm bus trước vị trí k.
+
+1.9. Xóa nút trước nút có bcode = xCode
+Cho phép người dùng nhập xCode và xóa nút trước nút có bcode =
+xCode.
+
+                                            Danh sách khách hàng (5 điểm):
+2.1. Tải dữ liệu từ tập tin
+Cho phép người dùng nhập tên file chứa thông tin của khách hàng. Các nội dung của tập tin có thể
+
+C03 | Hoa | 1902
+C01 | La | 1901
+C02 | Canh | 1903
+C05 | Cay | 1910
+
+Dòng đầu tiên có nghĩa là: ccode = C03, name = Hoa, phone = 1902
+
+2.2. Nhập & thêm vào cuối
+2.3. Hiển thị dữ liệu
+2.4. Lưu danh sách khách hàng vào file
+2.5. Tìm kiếm theo mã
+2.6. Xóa bằng mã hóa
+
+                                            Danh sách đặt chỗ (5 điểm):
+
+3.1. Dữ liệu đầu vào
+Cho phép người dùng nhập mục đặt chỗ.
+
+Khi chạy thì màn hình như sau:
+Nhập mã xe buýt:
+Nhập mã khách hàng:
+Nhập số ghế cần đặt:
+
+Sau khi người dùng nhập bcode và ccode, chương trình sẽ kiểm tra và hoạt động như sau:
+
+- Nếu không tìm thấy bcode trong danh sách Bus hoặc không tìm thấy code trong danh sách khách hàng thì dữ liệu sẽ bị hủy
+không được chấp nhận.
+
+- Nếu tìm thấy cả bcode và ccode trong danh sách đặt chỗ thì dữ liệu không được chấp nhận.
+
+- Nếu tìm thấy bcode và ccode trong danh sách Xe buýt và khách hàng nhưng đã đặt = chỗ ngồi thì thông báo
+người sử dụng rằng xe buýt đã cạn kiệt.
+
+- Nếu tìm thấy bcode hoặc ccode và trong danh sách xe buýt đã đặt < ghế và k là ghế đã nhập
+thì nếu k <= chỗ - đã đặt thì dữ liệu được chấp nhận và thêm vào cuối Booking
+danh sách.
+
+3.2. Hiển thị dữ liệu đặt phòng
+3.3. Sắp xếp theo  bcode + ccode
